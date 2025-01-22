@@ -1,0 +1,122 @@
+.signupContainer {
+  display: flex;
+  height: 100vh;
+}
+
+.leftSide {
+  flex: 1;
+  background: url('../components/image1.png') no-repeat center center;
+  background-size: cover;
+}
+
+.rightSide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.rightSide h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.rightSide form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.rightSide input {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.rightSide button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.rightSide button:hover {
+  background-color: #0056b3;
+}
+
+.rightSide p {
+  margin-top: 15px;
+  color: #333;
+}
+
+.signupContainer .rightSide {
+  color: white; /* White text for signup */
+}
+
+.navbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+}
+
+.Signupbtn {
+  margin: 5px 10px;
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+}
+.Loginbtn {
+  margin: 5px 10px;
+  text-decoration: none;
+  color: white;
+  background-color: blue;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+.navButton:hover {
+  background-color: #003d99;
+}
+
+.loginContainer .rightSide {
+  background-color: blue; /* Blue background for login */
+}
+
+@media (max-width: 768px) {
+  .signupContainer {
+    flex-direction: column;
+  }
+
+  .leftSide, .rightSide {
+    flex: none;
+    width: 100%;
+  }
+  .Loginbtn{
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 350px) {
+  .rightSide form {
+    width: 100%;
+  }
+
+  .rightSide input {
+    font-size: 14px;
+  }
+
+  .rightSide button {
+    font-size: 14px;
+  }
+  .Loginbtn{
+    margin-top: 40px;
+  }
+}
