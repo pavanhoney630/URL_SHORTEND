@@ -14,7 +14,7 @@ const Login = () => {
 
     try {
       // API call to login endpoint
-      const response = await fetch("https://your-backend-domain.com/api/login", {
+      const response = await fetch("https://url-shortend-api.vercel.app/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

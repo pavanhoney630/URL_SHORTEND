@@ -27,7 +27,7 @@ const Signup = () => {
 
     try {
       // Send API request to backend
-      const response = await fetch("https://your-backend-domain.com/api/signup", {
+      const response = await fetch("https://url-shortend-api.vercel.app/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
