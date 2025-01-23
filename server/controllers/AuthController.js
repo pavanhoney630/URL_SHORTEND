@@ -74,7 +74,8 @@ const login =  async (req, res) => {
   
       res.status(200).json({
         message: 'Login successful',
-        token,
+        token: token, // Make sure token is included
+        name: user.name, // This should send the user's name
       });
     } catch (error) {
       console.error(error);
