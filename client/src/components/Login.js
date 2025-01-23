@@ -7,19 +7,20 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      // API call to login endpoint
-      const response = await fetch("https://url-shortend-api.vercel.app/api/login", {
+      const url = "https://url-shortend-api.vercel.app/api/login";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
@@ -29,14 +30,18 @@ const Login = () => {
         throw new Error(data.message || "Login failed");
       }
 
+      setSuccessMessage("Login successful! Redirecting...");
+      setErrorMessage("");
+
       // Save name and token in localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("name", data.name);
 
       // Redirect to dashboard
-      navigate("/dashboard");
+      setTimeout(() => navigate("/dashboard"), 2000);
     } catch (error) {
       setErrorMessage(error.message);
+      setSuccessMessage("");
     }
   };
 
@@ -55,10 +60,11 @@ const Login = () => {
       <div className={styles.rightSide}>
         <h2>Welcome Back!</h2>
 
-        {/* Display Error Messages */}
+        {/* Display Error/Success Messages */}
         {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+        {successMessage && <p className={styles.success}>{successMessage}</p>}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <input
             type="email"
             placeholder="Email"

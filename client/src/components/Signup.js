@@ -26,13 +26,12 @@ const Signup = () => {
     }
 
     try {
-      // Send API request to backend
-      const response = await fetch("https://url-shortend-api.vercel.app/api/signup", {
+      const url = "https://url-shortend-api.vercel.app/api/signup";
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: 'include',
         body: JSON.stringify({ name, email, mobile, password }),
       });
 
@@ -80,30 +79,35 @@ const Signup = () => {
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
           <input
             type="email"
             placeholder="Email id"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
             type="text"
             placeholder="Mobile no."
             value={mobile}
             onChange={(e) => setMobile(e.target.value)}
+            required
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <input
             type="password"
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            required
           />
           <button type="submit">Register</button>
         </form>
