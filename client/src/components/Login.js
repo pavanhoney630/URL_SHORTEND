@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const url = "https://url-shortend-api.vercel.app/api/login";
+      const url = "https://url-shortend-api.vercel.app/auth/login";
       const response = await fetch(url, {
         method: "POST",
         headers: {

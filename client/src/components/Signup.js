@@ -26,7 +26,7 @@ const Signup = () => {
     }
 
     try {
-      const url = "https://url-shortend-api.vercel.app/api/signup";
+      const url = "https://url-shortend-api.vercel.app/auth/signup";
       const response = await fetch(url, {
         method: "POST",
         headers: {
