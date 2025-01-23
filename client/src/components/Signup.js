@@ -32,7 +32,7 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, mobile, password }),
+        body: JSON.stringify({ name, email, mobile, password,confirmPassword }),
       });
 
       const data = await response.json();
