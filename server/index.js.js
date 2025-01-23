@@ -12,6 +12,7 @@ app.use(express.json());
 const corsOptions = {
   origin: "https://url-shortend-client.vercel.app", // URL of your React frontend
   methods: ["GET", "POST"], // HTTP methods allowed
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true, // Allow cookies to be sent
 };
 
