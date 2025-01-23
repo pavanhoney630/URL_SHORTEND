@@ -9,7 +9,13 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: "https://url-shortend-client.vercel.app", // URL of your React frontend
+  methods: ["GET", "POST"], // HTTP methods allowed
+  credentials: true, // Allow cookies to be sent
+};
+
+app.use(cors(corsOptions));
 
 app.get('/', (req,res)=>{
   res.send("api is working fine");
