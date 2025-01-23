@@ -18,7 +18,7 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 
-app.get('/', (req,res)=>{
+app.get('/ping', (req,res)=>{
   res.send("api is working fine");
 })
 // Connect to MongoDB
