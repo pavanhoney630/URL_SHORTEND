@@ -14,9 +14,13 @@ app.get('/ping', (req, res) => {
     res.send('PONG');
 });
 
+const corsOptions = {
+  origin: "https://url-shortend-client.vercel.app", // URL of your React frontend
+  methods: ["GET", "POST"], // HTTP methods allowed
+};
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use('/auth', AuthRouter);
 
 const mongo_url = process.env.MONGO_URI;
