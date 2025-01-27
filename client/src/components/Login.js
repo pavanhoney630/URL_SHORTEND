@@ -35,7 +35,7 @@ const Login = () => {
       // Save name and token in localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("name", data.name);
-      
+
       const userName = localStorage.getItem("name");
        console.log(userName);
 
