@@ -124,7 +124,7 @@ const LinkPage = ({ searchQuery }) => {
 
   const handleRedirect = async (shortenedUrl) => {
     try {
-      const response = await axios.get(`${BASE_URL}/auth/${shortenedUrl}`, {
+      const response = await axios.get(`https://url-shortend-auth.vercel.app/auth/${shortenedUrl}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
