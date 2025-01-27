@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const AuthRouter = require('./routes/AuthRoutes');
+const { GetAnalytics } = require("./controllers/LinkController");
 
 
 require('dotenv').config();
@@ -14,14 +15,17 @@ app.get('/ping', (req, res) => {
     res.send('PONG');
 });
 
+
 const corsOptions = {
-  origin: "https://url-shortend-client.vercel.app", // URL of your React frontend
-  methods: ["GET", "POST"], // HTTP methods allowed
+  origin: ["https://url-shortend-client.vercel.app", "http://localhost:3000"], // URL of your React frontend
+  methods: ["GET", "POST", "PUT", "DELETE"], // HTTP methods allowed
+  allowedHeaders: ["Content-Type", "Authorization"]
 };
 
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.use('/auth', AuthRouter);
+app.get("/analytics", GetAnalytics);
 
 const mongo_url = process.env.MONGO_URI;
 
