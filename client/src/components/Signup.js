@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styles from "../css/Signup.module.css";
+import { useNavigate } from "react-router-dom";
 import cuvvetteImage from './cuvvette.png';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
@@ -42,6 +44,7 @@ const Signup = () => {
       }
 
       setSuccessMessage("Account created successfully! Please log in.");
+      setTimeout(() => navigate('/login'), 2000); // Redirect to login after success
       setErrorMessage("");
       setName("");
       setEmail("");
