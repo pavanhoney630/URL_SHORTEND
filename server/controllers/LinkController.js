@@ -18,7 +18,7 @@ const BASE_URL =
 const createShortenedUrl = async (req, res) => {
   const { originalUrl, expirationInDays, remarks } = req.body; // Include remarks in the request body
   const token = req.headers.authorization?.split(' ')[1]; // Extract the token from the request headers
-  
+
   if (!token) {
     return res.status(401).json({ message: 'No token provided' });
   }
@@ -62,8 +62,7 @@ const createShortenedUrl = async (req, res) => {
       originalUrl,
       shortenedUrl,
       userId, // Store userId here
-      remarks:  remarks || "No remarks", // Store remarks here
-      clicksByDate: {}, // Initialize an empty clicksByDate object
+      remarks: remarks || "No remarks", // Store remarks here
       visits: [], // Initialize an empty visits array
       createdAt,
       expirationDate,
@@ -75,7 +74,9 @@ const createShortenedUrl = async (req, res) => {
       },
     });
 
+    console.log('Saving new shortened URL:', newUrl);
     await newUrl.save();
+    console.log('Saved shortened URL:', newUrl);
 
     return res.status(201).json({
       originalUrl,
@@ -91,31 +92,35 @@ const createShortenedUrl = async (req, res) => {
     return res.status(500).json({ message: 'Server error' });
   }
 };
-
-// Only one declaration should exist
 const clickAndTrack = async (req, res) => {
   const { shortenedUrl } = req.params;
 
-  // Get the current date and timestamp
-  const currentDate = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
-  const timestamp = new Date(); // Full timestamp
-  const visitorIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-
   try {
-    // Find the URL by its shortened version
+    // Find the corresponding shortened URL
     const url = await ShortenedUrl.findOne({ shortenedUrl });
 
     if (!url) {
-      return res.status(404).json({ message: 'Shortened URL not found' });
+      return res.status(404).send('Shortened URL not found');
     }
 
-    // Increment the click count for the current date
-    const deviceType = getUserDevice(req.headers['user-agent']); // Get device type (mobile, desktop, tablet)
-    const ua = userAgentParser(req.headers['user-agent']); // Parse user-agent
+    // Check if the link has expired
+    if (url.expirationDate && new Date() > new Date(url.expirationDate)) {
+      return res.status(410).send('This link has expired.');
+    }
+
+    // Redirect first to avoid delays
+    res.redirect(url.originalUrl);
+
+    // Tracking data processing asynchronously
+    const currentDate = new Date().toISOString().split('T')[0];
+    const timestamp = new Date();
+    const visitorIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const deviceType = getUserDevice(req.headers['user-agent']);
+    const ua = userAgentParser(req.headers['user-agent']);
     const os = ua.os.name || 'unknown';
     const browser = ua.browser.name || 'unknown';
 
-    // Update clicks by date and device type
+    // Increment click counts and add visit asynchronously
     await ShortenedUrl.updateOne(
       { shortenedUrl },
       {
@@ -123,40 +128,31 @@ const clickAndTrack = async (req, res) => {
           [`clicksByDate.${currentDate}.totalClicks`]: 1,
           [`clicksByDate.${currentDate}.deviceClicks.${deviceType}`]: 1,
         },
+        $push: {
+          visits: {
+            date: currentDate,
+            timestamp,
+            originalUrl: url.originalUrl,
+            shortenedUrl: url.shortenedUrl,
+            os,
+            browser,
+            ip: visitorIp,
+            device: deviceType,
+          },
+        },
       }
     );
-
-    // Add the visitor's details to the `visits` array
-    url.visits.push({
-      date: currentDate,
-      timestamp,
-      originalUrl: url.originalUrl,
-      shortenedUrl: url.shortenedUrl,
-      os,
-      browser,
-      ip: visitorIp,
-      device: deviceType,
-    });
-
-    // Save the updated URL document
-    await url.save();
-
-    // Redirect to the original URL
-    return res.redirect(url.originalUrl);
   } catch (err) {
     console.error('Error in clickAndTrack function:', err);
-    return res.status(500).json({ message: 'Server error' });
+    return res.status(500).send('Server error');
   }
 };
 
-// Helper function to get device type
+// Helper function for device detection
 const getUserDevice = (userAgent) => {
   const ua = userAgentParser(userAgent);
-  return ua.device.type || 'desktop'; // Default to desktop if device type is undefined
+  return ua.device.type || 'desktop'; // Default to desktop
 };
-
-
-
 
 const getUserUrls = async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1]; // Extract the token
@@ -169,23 +165,18 @@ const getUserUrls = async (req, res) => {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken.id;
 
-    
-
     // Ensure the userId is a valid ObjectId string
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ message: 'Invalid User ID' });
     }
 
     // Create ObjectId from userId
-    const userObjectId = new mongoose.Types.ObjectId(userId); // Use 'new' to properly instantiate ObjectId
+    const userObjectId = new mongoose.Types.ObjectId(userId);
 
     // Fetch all URLs created by the user
     const urls = await ShortenedUrl.find({ userId: userObjectId }).select(
       'originalUrl shortenedUrl clicksByDate createdAt expirationDate remarks'
     );
-    
-
-    
 
     if (!urls || urls.length === 0) {
       return res.status(200).json({ message: 'No URLs found for this user', urls: [] });
@@ -195,29 +186,37 @@ const getUserUrls = async (req, res) => {
     const processedUrls = urls.map((url) => {
       let totalClicks = 0;
 
-      // Calculate total clicks from clicksByDate
+      // Handle both Map and plain object cases for clicksByDate
       if (url.clicksByDate) {
-        for (let date in url.clicksByDate) {
-          totalClicks += url.clicksByDate[date].totalClicks || 0;
+        if (url.clicksByDate instanceof Map) {
+          url.clicksByDate.forEach((value) => {
+            totalClicks += value.totalClicks || 0;
+          });
+        } else {
+          for (const date in url.clicksByDate) {
+            totalClicks += url.clicksByDate[date]?.totalClicks || 0;
+          }
         }
       }
 
+      
       return {
         originalUrl: url.originalUrl,
-        shortenedUrl: `${url.shortenedUrl}`, // Use existing BASE_URL logic
+        shortenedUrl: url.shortenedUrl,
         totalClicks,
-        remarks: url.remarks || 'No remarks', // Handle undefined remarks
+        remarks: url.remarks || 'No remarks',
         createdAt: url.createdAt,
         expirationDate: url.expirationDate,
       };
-      
     });
 
-    
+   
+
     return res.status(200).json({
       message: 'User URLs fetched successfully',
       urls: processedUrls,
     });
+    
   } catch (err) {
     console.error('Error fetching user URLs:', err);
 
@@ -400,8 +399,8 @@ const GetUserClicks = async (req, res) => {
     urls.forEach((url) => {
       if (url.clicksByDate) {
         // Iterate through the clicksByDate object for the URL
-        for (let date in url.clicksByDate) {
-          const dateData = url.clicksByDate[date];
+        for (let date of url.clicksByDate.keys()) {
+          const dateData = url.clicksByDate.get(date);
 
           // Add to total clicks
           totalClicks += dateData.totalClicks || 0;
@@ -419,14 +418,14 @@ const GetUserClicks = async (req, res) => {
 
           // Aggregate device clicks for this date
           if (dateData.deviceClicks) {
-            for (let device in dateData.deviceClicks) {
+            for (let device of dateData.deviceClicks.keys()) {
               const deviceKey = device.charAt(0).toUpperCase() + device.slice(1).toLowerCase(); // Normalize device keys
               if (deviceClicks[deviceKey] !== undefined) {
                 // Update overall device clicks
-                deviceClicks[deviceKey] += dateData.deviceClicks[device] || 0;
+                deviceClicks[deviceKey] += dateData.deviceClicks.get(device) || 0;
 
                 // Update device clicks for the specific date
-                dateWiseClicks[date].deviceClicks[deviceKey] += dateData.deviceClicks[device] || 0;
+                dateWiseClicks[date].deviceClicks[deviceKey] += dateData.deviceClicks.get(device) || 0;
               }
             }
           }
@@ -457,6 +456,7 @@ const GetUserClicks = async (req, res) => {
     return res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 
 

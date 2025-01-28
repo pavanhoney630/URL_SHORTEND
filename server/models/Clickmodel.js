@@ -1,15 +1,5 @@
 const mongoose = require('mongoose');
 
-// Schema to track clicks per date and device
-const clickDataSchema = new mongoose.Schema({
-  totalClicks: { type: Number, default: 0 },
-  deviceClicks: {
-    mobile: { type: Number, default: 0 },
-    desktop: { type: Number, default: 0 },
-    tablet: { type: Number, default: 0 },
-  },
-});
-
 const visitSchema = new mongoose.Schema({
   date: {
     type: String, // Store the visit date as YYYY-MM-DD
@@ -74,10 +64,7 @@ const shortenedUrlSchema = new mongoose.Schema(
       unique: true,
       index: true, // Ensure fast lookups for shortened URLs
     },
-    clicksByDate: {
-      type: Object, // Use Object instead of Map to store date-wise clicks
-      default: {},
-    },
+    
     visits: [visitSchema], // Embed the visitSchema for detailed tracking
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -88,6 +75,19 @@ const shortenedUrlSchema = new mongoose.Schema(
     type: String,
     required: true, // Ensure remarks is always present
   },
+  clicksByDate: {
+    type: Map,
+    of: {
+      totalClicks: { type: Number, default: 0 },
+      deviceClicks: {
+        type: Map,
+        of: Number, // Device types, e.g., desktop, mobile
+        default: {}
+      }
+    },
+    default: () => ({}),
+  },
+  
     creationDetails: {
       ip: { type: String, required: true }, // IP address of the device that created the URL
       browser: { type: String, required: true }, // Browser used to create the URL
