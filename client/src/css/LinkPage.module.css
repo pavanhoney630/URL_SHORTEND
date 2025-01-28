@@ -1,131 +1,109 @@
-/* LinkPage.module.css */
-.linkPage {
-  padding: 20px;
-  max-width: 100%;
-  overflow-x: auto;
-  background-color: #f4f7fc;
-}
-
-.linkTable {
-  width: 100%;
-  border-collapse: separate; /* Use separate borders for spacing */
-  border-spacing: 15px; /* Add space between columns */
-  margin-top: 20px;
+.container {
+  max-width: 90%;
+  margin: 2rem auto;
   background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Enables scrolling for content */
 }
 
-.linkTable th,
-.linkTable td {
-  padding: 12px 20px;
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
   text-align: left;
-  font-size: 14px;
+  min-width: 700px; /* Ensures table retains layout */
 }
 
-.linkTable th {
-  background-color: #0044cc;
-  color: #fff;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s;
+.table th {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+  position: sticky;
+  top: 0; /* Sticky header for scrolling */
+  z-index: 1;
 }
 
-.linkTable th:hover {
-  background-color: #0033a0;
-}
-
-.linkTable td {
-  background-color: #fafafa;
-  border-bottom: 1px solid #e0e0e0; /* Lighter border */
-}
-
-.linkTable td:last-child {
-  display: flex;
-  justify-content: space-between; /* Ensure icons are spaced well */
-}
-
-.linkTable td span {
+.table td {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.copyIcon, .editIcon, .deleteIcon {
+.table tr {
+  transition: background-color 0.2s ease-in;
+}
+
+.table tr:hover td {
+  background-color: #e6f7ff;
+}
+
+.icon {
+  margin-left: 8px;
   cursor: pointer;
-  color: #007bff;
-  font-size: 18px;
-  margin-left: 10px;
+  color: #555;
+  transition: color 0.3s ease;
 }
 
-.copyIcon:hover, .editIcon:hover, .deleteIcon:hover {
-  color: #0056b3;
+.icon:hover {
+  color: #007acc;
+}
+
+.link {
+  color: #007acc;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.link:hover {
+  color: #004f80;
 }
 
 .pagination {
+  margin-top: 1rem;
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
 }
 
 .pagination button {
-  background-color: #0044cc;
-  color: #fff;
+  background-color: #4caf50;
+  color: white;
   border: none;
-  padding: 8px 15px;
-  margin: 3px;
-  border-radius: 5px;
+  padding: 8px 12px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
+  border-radius: 5px;
+  margin: 5px 0;
 }
 
 .pagination button:hover {
-  background-color: #0033a0;
+  background-color: #45a049;
 }
 
-.pagination .activePage {
-  background-color: #0056b3;
+.pagination button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
 }
 
-.pagination .inactivePage {
-  background-color: #007bff;
+.pagination span {
+  font-size: 1rem;
 }
 
-.deletePopup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.deletePopup p {
-  margin-bottom: 10px;
-}
-
-.deletePopup button {
-  background-color: #d9534f;
-  color: #fff;
-  border: none;
-  padding: 8px 15px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.deletePopup button:hover {
-  background-color: #c9302c;
-}
-
-/* LinkPage.module.css */
-
-/* Popup container */
 .popup {
   position: fixed;
   top: 0;
@@ -196,67 +174,88 @@
   background-color: #aaa; /* Darker gray on hover */
 }
 
-/* Fade-in animation */
-@keyframes popupFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+/* Responsive Design */
 
-/* Responsive Styling */
 @media (max-width: 768px) {
-  .linkPage {
-    padding: 10px;
+  .container{
+    overflow-x: auto;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+  .table{
+    overflow: scroll;
   }
 
-  .linkTable {
-    font-size: 12px;
+  .table th,
+  .table td {
+    padding: 8px;
   }
 
-  .copyIcon, .editIcon, .deleteIcon {
-    font-size: 16px;
+  .icon {
+    margin-left: 4px;
   }
 
   .pagination button {
-    font-size: 12px;
-    padding: 6px 12px;
+    padding: 6px 10px;
   }
 }
 
 @media (max-width: 500px) {
-  .linkTable {
-    font-size: 11px;
+  .container {
+    padding: 1rem;
+    overflow: auto;
   }
 
-  .linkTable th, .linkTable td {
-    padding: 10px;
+  h1 {
+    font-size: 1.4rem;
   }
 
-  .copyIcon, .editIcon, .deleteIcon {
-    font-size: 14px;
+  .table {
+    display: block;
+      overflow: auto;
+    }
+  
+
+  .table th,
+  .table td {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pagination span {
+    margin-bottom: 8px;
   }
 
   .pagination button {
-    padding: 5px 10px;
+    width: 100%;
+    text-align: center;
+    padding: 6px 8px;
   }
 }
 
 @media (max-width: 300px) {
-  .linkTable {
-    font-size: 10px;
+  h1 {
+    font-size: 1.2rem;
   }
 
-  .copyIcon, .editIcon, .deleteIcon {
-    font-size: 12px;
+  .table {
+    font-size: 0.8rem;
+    overflow: auto;
+  }
+
+  .table th,
+  .table td {
+    padding: 4px;
   }
 
   .pagination button {
-    padding: 4px 8px;
-    font-size: 10px;
+    font-size: 0.85rem;
+    padding: 4px;
   }
 }

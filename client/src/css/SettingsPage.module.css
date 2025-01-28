@@ -10,8 +10,9 @@
   }
   
   h2 {
-    text-align: center;
+    
     margin-bottom: 20px;
+    
   }
   
   .formGroup {
@@ -25,7 +26,7 @@
   }
   
   .input {
-    width: 100%;
+    width: 70%;
     padding: 10px;
     font-size: 14px;
     border-radius: 5px;
@@ -50,7 +51,7 @@
   .saveButton {
     background-color: #007bff;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -59,10 +60,11 @@
   .deleteButton {
     background-color: #dc3545;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+   
   }
   
   .saveButton:hover, .deleteButton:hover {
@@ -72,4 +74,46 @@
   .errorInput {
     border: 1px solid red; /* Added a class for inputs with errors */
   }
-  
+  @media(min-width:500px) and (max-width:768px){
+    .input {
+      width: 80%;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 5px;
+    }
+    .saveButton{
+      margin-left: -20px;
+      
+    }
+    .saveButton,.deleteButton{
+      padding: 10px 7px;
+
+      
+    }
+  }
+  @media(min-width:300px) and (max-width:499px){
+    .input {
+      width: 80%;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 5px;
+    }
+    .h2 {
+    
+      margin-top: 30px;
+      
+    }
+    .saveButton,.deleteButton{
+      padding: 7px 7px;
+
+      
+    }
+    .deleteButton{
+      margin-left: -30px;
+    }
+
+  }

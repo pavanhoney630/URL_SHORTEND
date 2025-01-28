@@ -136,10 +136,6 @@ const Dashboard = () => {
       },
     ],
   };
-  
-  console.log("Bar Chart Data:", barChartData); // Final log for validation
- 
-
 
   const barChartOptions = {
     responsive: true,
@@ -147,6 +143,7 @@ const Dashboard = () => {
       legend: { position: 'top' },
       title: { display: true, text: 'Date-wise Total Clicks' },
     },
+    indexAxis: 'y', // Add this line to make the bars horizontal
   };
 
   const handleTabClick = (tab) => {

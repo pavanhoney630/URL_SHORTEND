@@ -193,7 +193,7 @@ const LinkPage = ({ searchQuery }) => {
 
   return (
     <div className={styles.container}>
-      <h1>Shortened Links</h1>
+      <h1>Created Links</h1>
 
       {loading ? (
         <p>Loading links...</p>
