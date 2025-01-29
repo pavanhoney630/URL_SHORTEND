@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const visitSchema = new mongoose.Schema({
   date: {
@@ -36,7 +36,6 @@ const visitSchema = new mongoose.Schema({
   },
 });
 
-
 // Schema for shortened URL data
 const shortenedUrlSchema = new mongoose.Schema(
   {
@@ -46,7 +45,9 @@ const shortenedUrlSchema = new mongoose.Schema(
       validate: {
         validator: function (v) {
           // Allow URLs with or without a scheme (http:// or https://)
-          return /^(ftp|http|https):\/\/[^ "]+$|^[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/.test(v);
+          return /^(ftp|http|https):\/\/[^ "]+$|^[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/.test(
+            v
+          );
         },
         message: (props) => `${props.value} is not a valid URL!`,
       },
@@ -64,30 +65,30 @@ const shortenedUrlSchema = new mongoose.Schema(
       unique: true,
       index: true, // Ensure fast lookups for shortened URLs
     },
-    
+
     visits: [visitSchema], // Embed the visitSchema for detailed tracking
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User', // Reference to User model (assuming you have a 'User' model)
+      ref: "User", // Reference to User model (assuming you have a 'User' model)
       required: true,
     },
     remarks: {
-    type: String,
-    required: true, // Ensure remarks is always present
-  },
-  clicksByDate: {
-    type: Map,
-    of: {
-      totalClicks: { type: Number, default: 0 },
-      deviceClicks: {
-        type: Map,
-        of: Number, // Device types, e.g., desktop, mobile
-        default: {}
-      }
+      type: String,
+      required: true, // Ensure remarks is always present
     },
-    default: () => ({}),
-  },
-  
+    clicksByDate: {
+      type: Map,
+      of: {
+        totalClicks: { type: Number, default: 0 },
+        deviceClicks: {
+          type: Map,
+          of: Number, // Device types, e.g., desktop, mobile
+          default: {},
+        },
+      },
+      default: () => ({}),
+    },
+
     creationDetails: {
       ip: { type: String, required: true }, // IP address of the device that created the URL
       browser: { type: String, required: true }, // Browser used to create the URL
@@ -100,6 +101,6 @@ const shortenedUrlSchema = new mongoose.Schema(
 );
 
 // Create the model
-const ShortenedUrl = mongoose.model('ShortenedUrl', shortenedUrlSchema);
+const ShortenedUrl = mongoose.model("ShortenedUrl", shortenedUrlSchema);
 
 module.exports = ShortenedUrl;
