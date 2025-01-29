@@ -37,3 +37,7 @@ Settings //
 
 In the settings page we have the functionality like updating the username mobile and email.
 
+Key Points //
+
+*All the Data is meant to be stored in the database and i designed like this to render data dynamically from backend fetching from the the database.
+*main Routes of the design is /signup, /login, /dashboard, /dashboard/links, /dashboard/analytics, /dashboard/settings.
