@@ -197,7 +197,6 @@ const LinkPage = ({ searchQuery }) => {
     setTimeout(() => navigate("/login"), 2000);
   };
 
-<<<<<<< HEAD
   return (
     <>
       <button className={styles.logout} onClick={LogOut}>
@@ -280,75 +279,6 @@ const LinkPage = ({ searchQuery }) => {
                       />
                     )}
                     <FaTrash
-=======
-      {loading ? (
-        <p>Loading links...</p>
-      ) : error ? (
-        <p className={styles.error}>{error}</p>
-      ) : filteredLinks.length === 0 ? (
-        <p>No links found matching your search query!</p>
-      ) : (
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Original Link</th>
-              <th>Short Link</th>
-              <th></th>
-              <th>Remarks</th>
-              <th>Clicks</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentLinks.map((link) => (
-              <tr key={link.shortenedUrl}>
-                <td>
-                  {new Date(link.createdAt).toLocaleString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                  })}
-                </td>
-                <td>
-                  {link.originalUrl}
-                  <FaCopy
-                    onClick={() => handleCopy(link.shortenedUrl)}
-                    className={styles.icon}
-                  />
-                </td>
-                <td>
-                  <span
-                    onClick={() => handleRedirect(link.shortenedUrl)}
-                    className={styles.link}
-                  >
-                    {BASE_URL}/{link.shortenedUrl}
-                  </span>
-                  <FaCopy
-                    onClick={() => handleCopy(link.shortenedUrl)}
-                    className={styles.icon}
-                  />
-                </td>
-                <td>:</td>
-                <td>{link.remarks || "No remarks"}</td>
-                <td>{link.totalClicks}</td>
-                <td style={{ color: getStatusColor(link.expirationDate) }}>
-                  {link.expirationDate &&
-                  new Date(link.expirationDate) < new Date()
-                    ? "Inactive"
-                    : "Active"}
-                </td>
-                <td>
-                  {isEditing && editUrl === link.shortenedUrl ? (
-                    // Don't show the pencil button when editing
-                    <button onClick={handleUpdate}>Save</button>
-                  ) : (
-                    <FaPencilAlt
->>>>>>> e174b4ef6f5804d25172cf5f62e8c725d3370ee7
                       onClick={() =>
                         setPopup({
                           type: "delete",
