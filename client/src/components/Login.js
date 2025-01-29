@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../css/Login.module.css";
-import cuvvetteImage from './cuvvette.png';
+import cuvvetteImage from "./cuvvette.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -37,7 +37,7 @@ const Login = () => {
       localStorage.setItem("name", data.name);
 
       const userName = localStorage.getItem("name");
-       console.log(userName);
+      console.log(userName);
 
       // Redirect to dashboard
       setTimeout(() => navigate("/dashboard"), 2000);
@@ -51,8 +51,12 @@ const Login = () => {
     <div className={styles.loginContainer}>
       {/* Navigation Bar */}
       <nav className={styles.navbar}>
-        <a href="/signup" className={styles.Signupbtn}>Sign Up</a>
-        <a href="/login" className={styles.Loginbtn}>Log In</a>
+        <a href="/signup" className={styles.Signupbtn}>
+          Sign Up
+        </a>
+        <a href="/login" className={styles.Loginbtn}>
+          Log In
+        </a>
       </nav>
 
       {/* Main Content */}

@@ -175,7 +175,7 @@ const LinkPage = ({ searchQuery }) => {
 
   const getStatusColor = (expirationDate) => {
     return expirationDate && new Date(expirationDate) < new Date()
-      ? "red"
+      ? "Orange"
       : "green";
   };
 
@@ -251,7 +251,7 @@ const LinkPage = ({ searchQuery }) => {
                 <td style={{ color: getStatusColor(link.expirationDate) }}>
                   {link.expirationDate &&
                   new Date(link.expirationDate) < new Date()
-                    ? "Expired"
+                    ? "Inactive"
                     : "Active"}
                 </td>
                 <td>
@@ -325,7 +325,10 @@ const LinkPage = ({ searchQuery }) => {
             >
               Yes, delete
             </button>
-            <button onClick={() => setPopup(null)} className={styles.cancelButton}>
+            <button
+              onClick={() => setPopup(null)}
+              className={styles.cancelButton}
+            >
               Cancel
             </button>
           </div>

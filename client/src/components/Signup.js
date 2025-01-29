@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../css/Signup.module.css";
 import { useNavigate } from "react-router-dom";
-import cuvvetteImage from './cuvvette.png';
+import cuvvetteImage from "./cuvvette.png";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -34,7 +34,13 @@ const Signup = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, mobile, password,confirmPassword }),
+        body: JSON.stringify({
+          name,
+          email,
+          mobile,
+          password,
+          confirmPassword,
+        }),
       });
 
       const data = await response.json();
@@ -44,7 +50,7 @@ const Signup = () => {
       }
 
       setSuccessMessage("Account created successfully! Please log in.");
-      setTimeout(() => navigate('/login'), 2000); // Redirect to login after success
+      setTimeout(() => navigate("/login"), 2000); // Redirect to login after success
       setErrorMessage("");
       setName("");
       setEmail("");
@@ -61,8 +67,12 @@ const Signup = () => {
     <div className={styles.signupContainer}>
       {/* Navigation Bar */}
       <nav className={styles.navbar}>
-        <a href="/signup" className={styles.Signupbtn}>Sign Up</a>
-        <a href="/login" className={styles.Loginbtn}>Log In</a>
+        <a href="/signup" className={styles.Signupbtn}>
+          Sign Up
+        </a>
+        <a href="/login" className={styles.Loginbtn}>
+          Log In
+        </a>
       </nav>
 
       {/* Main Content */}

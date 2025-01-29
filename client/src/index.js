@@ -1,14 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Signup from './components/Signup'; 
-import Login from './components/Login';
-import Dashboard from './components/Dashboard'; // Import the Dashboard
-import LinksPage from './components/LinksPage';
-import AnalyticsPage from './components/AnalyticsPage';
-import SettingsPage from './components/SettingsPage';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard"; // Import the Dashboard
+import LinksPage from "./components/LinksPage";
+import AnalyticsPage from "./components/AnalyticsPage";
+import SettingsPage from "./components/SettingsPage";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <Router>

@@ -177,13 +177,13 @@ h1 {
 /* Responsive Design */
 
 @media (max-width: 768px) {
-  .container{
+  .container {
     overflow-x: auto;
   }
   h1 {
     font-size: 1.6rem;
   }
-  .table{
+  .table {
     overflow: scroll;
   }
 
@@ -213,9 +213,8 @@ h1 {
 
   .table {
     display: block;
-      overflow: auto;
-    }
-  
+    overflow: auto;
+  }
 
   .table th,
   .table td {

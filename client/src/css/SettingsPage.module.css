@@ -1,119 +1,111 @@
 /* Settings.module.css */
 .settingsContainer {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h2 {
-    
-    margin-bottom: 20px;
-    
-  }
-  
-  .formGroup {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-  }
-  
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 70%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+}
+
+.input.error {
+  border: 1px solid red; /* Highlight red when there is an error */
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.saveButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.saveButton:hover,
+.deleteButton:hover {
+  opacity: 0.8;
+}
+
+.errorInput {
+  border: 1px solid red; /* Added a class for inputs with errors */
+}
+@media (min-width: 500px) and (max-width: 768px) {
   .input {
-    width: 70%;
+    width: 80%;
     padding: 10px;
     font-size: 14px;
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 5px;
   }
-  
-  .input.error {
-    border: 1px solid red; /* Highlight red when there is an error */
-  }
-  
-  .error {
-    color: red;
-    font-size: 12px;
-  }
-  
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-  }
-  
   .saveButton {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    margin-left: -20px;
   }
-  
+  .saveButton,
   .deleteButton {
-    background-color: #dc3545;
-    color: white;
-    padding: 10px 10px;
-    border: none;
+    padding: 10px 7px;
+  }
+}
+@media (min-width: 300px) and (max-width: 499px) {
+  .input {
+    width: 80%;
+    padding: 10px;
+    font-size: 14px;
     border-radius: 5px;
-    cursor: pointer;
-   
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
   }
-  
-  .saveButton:hover, .deleteButton:hover {
-    opacity: 0.8;
+  .h2 {
+    margin-top: 30px;
   }
-  
-  .errorInput {
-    border: 1px solid red; /* Added a class for inputs with errors */
+  .saveButton,
+  .deleteButton {
+    padding: 7px 7px;
   }
-  @media(min-width:500px) and (max-width:768px){
-    .input {
-      width: 80%;
-      padding: 10px;
-      font-size: 14px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      margin-bottom: 5px;
-    }
-    .saveButton{
-      margin-left: -20px;
-      
-    }
-    .saveButton,.deleteButton{
-      padding: 10px 7px;
-
-      
-    }
+  .deleteButton {
+    margin-left: -30px;
   }
-  @media(min-width:300px) and (max-width:499px){
-    .input {
-      width: 80%;
-      padding: 10px;
-      font-size: 14px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      margin-bottom: 5px;
-    }
-    .h2 {
-    
-      margin-top: 30px;
-      
-    }
-    .saveButton,.deleteButton{
-      padding: 7px 7px;
-
-      
-    }
-    .deleteButton{
-      margin-left: -30px;
-    }
-
-  }
+}

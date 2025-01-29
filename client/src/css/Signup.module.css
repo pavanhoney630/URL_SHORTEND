@@ -5,7 +5,7 @@
 
 .leftSide {
   flex: 1;
-  background: url('../components/image1.png') no-repeat center center;
+  background: url("../components/image1.png") no-repeat center center;
   background-size: cover;
 }
 
@@ -95,11 +95,12 @@
     flex-direction: column;
   }
 
-  .leftSide, .rightSide {
+  .leftSide,
+  .rightSide {
     flex: none;
     width: 100%;
   }
-  .Loginbtn{
+  .Loginbtn {
     margin-top: 40px;
   }
 }
@@ -116,7 +117,7 @@
   .rightSide button {
     font-size: 14px;
   }
-  .Loginbtn{
+  .Loginbtn {
     margin-top: 40px;
   }
 }

@@ -10,55 +10,61 @@ const BASE_URL =
 const AnalyticsPage = () => {
   const [visits, setVisits] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(7);  // Adjust page size based on your preference
-  const [sortConfig, setSortConfig] = useState({ key: 'timestamp', direction: 'desc' }); // Sorting state
+  const [pageSize] = useState(7); // Adjust page size based on your preference
+  const [sortConfig, setSortConfig] = useState({
+    key: "timestamp",
+    direction: "desc",
+  }); // Sorting state
 
-  const sortVisits = useCallback((visits) => {
-    return [...visits].sort((a, b) => {
-      if (sortConfig.key === 'timestamp') {
-        return sortConfig.direction === 'desc'
-          ? new Date(b.timestamp) - new Date(a.timestamp)
-          : new Date(a.timestamp) - new Date(b.timestamp);
-      } else if (sortConfig.key === 'shortenedUrl') {
-        return sortConfig.direction === 'desc'
-          ? a.shortenedUrl.localeCompare(b.shortenedUrl)
-          : b.shortenedUrl.localeCompare(a.shortenedUrl);
-      }
-      return 0;
-    });
-  }, [sortConfig]);
+  const sortVisits = useCallback(
+    (visits) => {
+      return [...visits].sort((a, b) => {
+        if (sortConfig.key === "timestamp") {
+          return sortConfig.direction === "desc"
+            ? new Date(b.timestamp) - new Date(a.timestamp)
+            : new Date(a.timestamp) - new Date(b.timestamp);
+        } else if (sortConfig.key === "shortenedUrl") {
+          return sortConfig.direction === "desc"
+            ? a.shortenedUrl.localeCompare(b.shortenedUrl)
+            : b.shortenedUrl.localeCompare(a.shortenedUrl);
+        }
+        return 0;
+      });
+    },
+    [sortConfig]
+  );
 
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
-        const token = localStorage.getItem('token');  // Get token from localStorage
+        const token = localStorage.getItem("token"); // Get token from localStorage
         console.log(token);
 
         if (!token) {
-          console.error('No token found');
+          console.error("No token found");
           return;
         }
-       console.log("itsworking");
+        console.log("itsworking");
         // Make the API call with the token in the Authorization header
         const response = await axios.get(`${BASE_URL}/analytics`, {
-          headers: { Authorization: `Bearer ${token}` }  // Send token in request header
+          headers: { Authorization: `Bearer ${token}` }, // Send token in request header
         });
 
-        console.log("Response Data:", response.data);  // Check what is returned
+        console.log("Response Data:", response.data); // Check what is returned
 
         if (!response.data || !Array.isArray(response.data.visits)) {
           console.error("Visits data not found or is not an array.");
-          setVisits([]);  // Set empty array to avoid rendering errors
+          setVisits([]); // Set empty array to avoid rendering errors
           return;
         }
         console.log("im working here");
 
         const sortedVisits = sortVisits(response.data.visits);
         setVisits(sortedVisits);
-        console.log("Sorted Visits:", sortedVisits);  // Check the sorted data
+        console.log("Sorted Visits:", sortedVisits); // Check the sorted data
       } catch (error) {
         console.error("Error fetching analytics:", error);
-        setVisits([]);  // In case of error, set empty array
+        setVisits([]); // In case of error, set empty array
       }
     };
 
@@ -83,9 +89,9 @@ const AnalyticsPage = () => {
   };
 
   const handleSort = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
     }
     setSortConfig({ key, direction });
   };
@@ -100,12 +106,16 @@ const AnalyticsPage = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th onClick={() => handleSort('timestamp')}>
-                  Timestamp {sortConfig.key === 'timestamp' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                <th onClick={() => handleSort("timestamp")}>
+                  Timestamp{" "}
+                  {sortConfig.key === "timestamp" &&
+                    (sortConfig.direction === "asc" ? "↑" : "↓")}
                 </th>
                 <th>Original Link</th>
-                <th onClick={() => handleSort('shortenedUrl')}>
-                  Shortened Link {sortConfig.key === 'shortenedUrl' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                <th onClick={() => handleSort("shortenedUrl")}>
+                  Shortened Link{" "}
+                  {sortConfig.key === "shortenedUrl" &&
+                    (sortConfig.direction === "asc" ? "↑" : "↓")}
                 </th>
                 <th>IP Address</th>
                 <th>User Device</th>
@@ -133,7 +143,10 @@ const AnalyticsPage = () => {
             <span>
               Page {currentPage} of {totalPages}
             </span>
-            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === totalPages}
+            >
               Next
             </button>
           </div>
