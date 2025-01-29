@@ -208,6 +208,7 @@ const LinkPage = ({ searchQuery }) => {
               <th>Date</th>
               <th>Original Link</th>
               <th>Short Link</th>
+              <th></th>
               <th>Remarks</th>
               <th>Clicks</th>
               <th>Status</th>
