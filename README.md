@@ -1,6 +1,6 @@
 URL_SHORTEND //Project Name
 
-Demo CRED: Username : Pswdd:
+Demo CRED: Useremail :rithik123@gmail.com, Pswdd: rithik
 
 Features implemented in this projects as follows
 Signup //
