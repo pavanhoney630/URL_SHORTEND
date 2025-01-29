@@ -8,7 +8,8 @@ user can signup in this design by giving the data like Name, email, mobile,passw
 
 Login //
 
-user can login directly if he has exisisting account by giving email and password.
+User can login directly if he has exisisting account by giving email and password.
+For realtime entity feel i have set Timeout function for redirecting to dashboard after successfull login.
 
 Password hash //
 For security reasons of user's data, their password stored as hashed string in the database. It provides lot more protection to their user's information.
