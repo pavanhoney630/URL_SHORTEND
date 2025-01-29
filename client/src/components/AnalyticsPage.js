@@ -118,6 +118,7 @@ const AnalyticsPage = () => {
                     (sortConfig.direction === "asc" ? "↑" : "↓")}
                 </th>
                 <th>IP Address</th>
+                <th>Browser</th>
                 <th>User Device</th>
               </tr>
             </thead>
@@ -131,6 +132,7 @@ const AnalyticsPage = () => {
                   <td>{visit.originalUrl}</td>
                   <td>{visit.shortenedUrl}</td>
                   <td>{visit.ip}</td>
+                  <td>{visit.browser || "Edge"}</td>
                   <td>{visit.device}</td>
                 </tr>
               ))}
