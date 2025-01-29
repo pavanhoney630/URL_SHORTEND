@@ -10,8 +10,8 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
 
-app.get("/ping", (req, res) => {
-  res.send("PONG");
+app.get("/pavan", (req, res) => {
+  res.send("Kalyan");
 });
 
 const corsOptions = {
