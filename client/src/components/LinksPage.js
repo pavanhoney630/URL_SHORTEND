@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaPencilAlt, FaTrash, FaCopy } from "react-icons/fa";
 import styles from "../css/LinkPage.module.css";
+import { useNavigate } from "react-router-dom";
 
 // Define BASE_URL using environment variable
 const BASE_URL =
@@ -10,6 +11,7 @@ const BASE_URL =
     : process.env.REACT_APP_PROD_URL;
 
 const LinkPage = ({ searchQuery }) => {
+  const navigate = useNavigate();
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -191,151 +193,162 @@ const LinkPage = ({ searchQuery }) => {
     }
   };
 
-  return (
-    <div className={styles.container}>
-      <h1>Created Links</h1>
+  const LogOut = () => {
+    setTimeout(() => navigate("/login"), 2000);
+  };
 
-      {loading ? (
-        <p>Loading links...</p>
-      ) : error ? (
-        <p className={styles.error}>{error}</p>
-      ) : filteredLinks.length === 0 ? (
-        <p>No links found matching your search query!</p>
-      ) : (
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Original Link</th>
-              <th>Short Link</th>
-              <th>Remarks</th>
-              <th>Clicks</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentLinks.map((link) => (
-              <tr key={link.shortenedUrl}>
-                <td>
-                  {new Date(link.createdAt).toLocaleString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                  })}
-                </td>
-                <td>
-                  {link.originalUrl}
-                  <FaCopy
-                    onClick={() => handleCopy(link.shortenedUrl)}
-                    className={styles.icon}
-                  />
-                </td>
-                <td>
-                  <span
-                    onClick={() => handleRedirect(link.shortenedUrl)}
-                    className={styles.link}
-                  >
-                    {BASE_URL}/{link.shortenedUrl}
-                  </span>
-                  <FaCopy
-                    onClick={() => handleCopy(link.shortenedUrl)}
-                    className={styles.icon}
-                  />
-                </td>
-                <td>:</td>
-                <td>{link.remarks || "No remarks"}</td>
-                <td>{link.totalClicks}</td>
-                <td style={{ color: getStatusColor(link.expirationDate) }}>
-                  {link.expirationDate &&
-                  new Date(link.expirationDate) < new Date()
-                    ? "Inactive"
-                    : "Active"}
-                </td>
-                <td>
-                  {isEditing && editUrl === link.shortenedUrl ? (
-                    // Don't show the pencil button when editing
-                    <button onClick={handleUpdate}>Save</button>
-                  ) : (
-                    <FaPencilAlt
+  return (
+    <>
+      <button className={styles.logout} onClick={LogOut}>
+        Logout
+      </button>
+      <div className={styles.container}>
+        <h1>Created Links</h1>
+
+        {loading ? (
+          <p>Loading links...</p>
+        ) : error ? (
+          <p className={styles.error}>{error}</p>
+        ) : filteredLinks.length === 0 ? (
+          <p>No links found matching your search query!</p>
+        ) : (
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Original Link</th>
+                <th>Short Link</th>
+                <th></th>
+                <th>Remarks</th>
+                <th>Clicks</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentLinks.map((link) => (
+                <tr key={link.shortenedUrl}>
+                  <td>
+                    {new Date(link.createdAt).toLocaleString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                  </td>
+                  <td>
+                    {link.originalUrl}
+                    <FaCopy
+                      onClick={() => handleCopy(link.shortenedUrl)}
+                      className={styles.icon}
+                    />
+                  </td>
+                  <td>
+                    <span
+                      onClick={() => handleRedirect(link.shortenedUrl)}
+                      className={styles.link}
+                    >
+                      {BASE_URL}/{link.shortenedUrl}
+                    </span>
+                    <FaCopy
+                      onClick={() => handleCopy(link.shortenedUrl)}
+                      className={styles.icon}
+                    />
+                  </td>
+                  <td>:</td>
+                  <td>{link.remarks || "No remarks"}</td>
+                  <td>{link.totalClicks}</td>
+                  <td style={{ color: getStatusColor(link.expirationDate) }}>
+                    {link.expirationDate &&
+                    new Date(link.expirationDate) < new Date()
+                      ? "Inactive"
+                      : "Active"}
+                  </td>
+                  <td>
+                    {isEditing && editUrl === link.shortenedUrl ? (
+                      // Don't show the pencil button when editing
+                      <button onClick={handleUpdate}>Save</button>
+                    ) : (
+                      <FaPencilAlt
+                        onClick={() =>
+                          handleEdit(link.shortenedUrl, link.originalUrl)
+                        }
+                        className={styles.icon}
+                      />
+                    )}
+                    <FaTrash
                       onClick={() =>
-                        handleEdit(link.shortenedUrl, link.originalUrl)
+                        setPopup({
+                          type: "delete",
+                          shortenedUrl: link.shortenedUrl,
+                        })
                       }
                       className={styles.icon}
                     />
-                  )}
-                  <FaTrash
-                    onClick={() =>
-                      setPopup({
-                        type: "delete",
-                        shortenedUrl: link.shortenedUrl,
-                      })
-                    }
-                    className={styles.icon}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
-      {/* Pagination Controls */}
-      <div className={styles.pagination}>
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {Math.ceil(filteredLinks.length / rowsPerPage)}
-        </span>
-        <button
-          onClick={handleNextPage}
-          disabled={currentPage * rowsPerPage >= filteredLinks.length}
-        >
-          Next
-        </button>
+        {/* Pagination Controls */}
+        <div className={styles.pagination}>
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            Previous
+          </button>
+          <span>
+            Page {currentPage} of{" "}
+            {Math.ceil(filteredLinks.length / rowsPerPage)}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage * rowsPerPage >= filteredLinks.length}
+          >
+            Next
+          </button>
+        </div>
+
+        {/* Popup for Edit */}
+        {popup === "edit" && isEditing && editUrl !== null && (
+          <div className={styles.popup}>
+            <div className={styles.popupContent}>
+              <h2>Edit Link</h2>
+              <input
+                type="text"
+                value={newOriginalUrl}
+                onChange={(e) => setNewOriginalUrl(e.target.value)}
+              />
+              <button onClick={handleUpdate}>Update</button>
+              <button onClick={() => setPopup(null)}>Close</button>
+            </div>
+          </div>
+        )}
+
+        {/* Popup for Delete */}
+        {popup && popup.type === "delete" && (
+          <div className={styles.popup}>
+            <div className={styles.popupContent}>
+              <h2>Are you sure you want to delete this link?</h2>
+              <button
+                onClick={() => handleDelete(popup.shortenedUrl)}
+                className={styles.deleteButton}
+              >
+                Yes, delete
+              </button>
+              <button
+                onClick={() => setPopup(null)}
+                className={styles.cancelButton}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </div>
-
-      {/* Popup for Edit */}
-      {popup === "edit" && isEditing && editUrl !== null && (
-        <div className={styles.popup}>
-          <div className={styles.popupContent}>
-            <h2>Edit Link</h2>
-            <input
-              type="text"
-              value={newOriginalUrl}
-              onChange={(e) => setNewOriginalUrl(e.target.value)}
-            />
-            <button onClick={handleUpdate}>Update</button>
-            <button onClick={() => setPopup(null)}>Close</button>
-          </div>
-        </div>
-      )}
-
-      {/* Popup for Delete */}
-      {popup && popup.type === "delete" && (
-        <div className={styles.popup}>
-          <div className={styles.popupContent}>
-            <h2>Are you sure you want to delete this link?</h2>
-            <button
-              onClick={() => handleDelete(popup.shortenedUrl)}
-              className={styles.deleteButton}
-            >
-              Yes, delete
-            </button>
-            <button
-              onClick={() => setPopup(null)}
-              className={styles.cancelButton}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 

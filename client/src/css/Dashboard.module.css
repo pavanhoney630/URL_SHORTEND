@@ -223,6 +223,7 @@
     width: 100%;
     border-right: none;
     border-bottom: 1px solid #ddd;
+    overflow: auto;
   }
 
   .header {
@@ -264,6 +265,9 @@
   .chart h3 {
     font-size: 1.2rem;
   }
+  .sidebar{
+    overflow: auto;
+  }
 }
 @media (min-width: 521px) and (max-width: 768px) {
   .navLinks {
@@ -281,6 +285,9 @@
     display: flex;
     justify-content: space-between;
     margin-left: -60px;
+  }
+  .sidebar{
+    overflow: auto;
   }
 }
 @media (min-width: 300px) and (max-width: 520px) {
@@ -345,6 +352,7 @@
     border-right: none;
     border-bottom: 1px solid #ddd;
     padding: 0.5rem;
+    overflow-x: auto;
   }
 
   .content {

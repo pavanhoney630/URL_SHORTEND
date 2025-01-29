@@ -1,3 +1,14 @@
+.logout{
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 17px;
+  margin-top: -120px;
+  text-align: right;
+  margin-left: 950px;
+
+}
+
 .container {
   max-width: 90%;
   margin: 2rem auto;
@@ -21,6 +32,7 @@ h1 {
   border-spacing: 0 15px;
   text-align: left;
   min-width: 700px; /* Ensures table retains layout */
+  overflow-x: auto;
 }
 
 .table th {
@@ -177,6 +189,7 @@ h1 {
 /* Responsive Design */
 
 @media (max-width: 768px) {
+ 
   .container {
     overflow-x: auto;
   }
@@ -184,7 +197,7 @@ h1 {
     font-size: 1.6rem;
   }
   .table {
-    overflow: scroll;
+    overflow-x: auto;
   }
 
   .table th,
@@ -201,10 +214,11 @@ h1 {
   }
 }
 
-@media (max-width: 500px) {
+@media (min-width: 390px) and (max-width: 500px) {
   .container {
     padding: 1rem;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   h1 {
@@ -213,7 +227,10 @@ h1 {
 
   .table {
     display: block;
-    overflow: auto;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap; 
+  
   }
 
   .table th,
@@ -239,13 +256,22 @@ h1 {
 }
 
 @media (max-width: 300px) {
+  .container {
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+   
+  }
+
   h1 {
     font-size: 1.2rem;
   }
 
   .table {
+    display: block;
     font-size: 0.8rem;
-    overflow: auto;
+    overflow-x: auto;
+    white-space: nowrap;
+    max-height: 100%;
   }
 
   .table th,
