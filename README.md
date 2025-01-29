@@ -32,7 +32,7 @@ In this we can also able to edit the url and also delete the url created by the 
 
 Analytics //
 
-Despite incresing the click count this design has ability to get the Url visit time by any one which created by user and the visitor's IP Adress, visit of time and os using by user, also the device type. (got this device type in design by using (user-agent parser)).
+Despite incresing the click count this design has ability to get the Url visit time by any one which created by user and the visitor's IP Adress, visit of time and os and browser using by user, also the device type. (got this device type in design by using (user-agent parser)).
 
 Settings //
 
