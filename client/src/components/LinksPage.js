@@ -246,6 +246,7 @@ const LinkPage = ({ searchQuery }) => {
                     className={styles.icon}
                   />
                 </td>
+                <td>:</td>
                 <td>{link.remarks || "No remarks"}</td>
                 <td>{link.totalClicks}</td>
                 <td style={{ color: getStatusColor(link.expirationDate) }}>
