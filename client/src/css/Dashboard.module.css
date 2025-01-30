@@ -1,13 +1,14 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  height: 60vh;
   font-family: Arial, sans-serif;
+  
 }
 
 /* Sidebar */
 .sidebar {
-  width: 200px;
+  width: 170px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,7 +69,7 @@
   background-color: #fff;
   border-bottom: 1px solid #ddd;
   /* position: fixed; */
-  width: 100%;
+  width: 90%;
   top: 0;
   left: 0;
   z-index: 100;
@@ -133,6 +134,15 @@
   margin-top: 20px; /* Adjust for the header */
   padding: 1rem;
   overflow-y: auto;
+}
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.main {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .chart {

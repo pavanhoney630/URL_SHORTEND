@@ -18,6 +18,15 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   overflow-x: auto; /* Enables scrolling for content */
 }
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 h1 {
   text-align: center;
@@ -187,9 +196,29 @@ h1 {
 }
 
 /* Responsive Design */
-
+@media (min-width: 769px) and (max-width: 1000px){
+  .logout{
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 17px;
+    margin-top: -120px;
+    text-align: right;
+    margin-left: 400px;
+}
+}
 @media (max-width: 768px) {
- 
+  .logout{
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 17px;
+    margin-top: -120px;
+    text-align: right;
+    margin-left: 350px;
+  
+  }
+
   .container {
     overflow-x: auto;
   }
@@ -197,7 +226,7 @@ h1 {
     font-size: 1.6rem;
   }
   .table {
-    overflow-x: auto;
+    overflow:auto;
   }
 
   .table th,

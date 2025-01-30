@@ -36,7 +36,7 @@ const BASE_URL =
   process.env.NODE_ENV === "development"
     ? process.env.REACT_APP_DEV_URL
     : process.env.REACT_APP_PROD_URL;
-console.log(BASE_URL);
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -98,7 +98,7 @@ const Dashboard = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("API Response:", response.data);
+        
 
         const {
           totalClicks = 0,
