@@ -8,7 +8,8 @@ user can signup in this design by giving the data like Name, email, mobile,passw
 
 Login //
 
-user can login directly if he has exisisting account by giving email and password.
+User can login directly if he has exisisting account by giving email and password.
+For realtime entity feel i have set Timeout function for redirecting to dashboard after successfull login.
 
 Password hash //
 For security reasons of user's data, their password stored as hashed string in the database. It provides lot more protection to their user's information.
@@ -31,7 +32,7 @@ In this we can also able to edit the url and also delete the url created by the 
 
 Analytics //
 
-Despite incresing the click count this design has ability to get the Url visit time by any one which created by user and the visitor's IP Adress, visit of time and os using by user, also the device type. (got this device type in design by using (user-agent parser)).
+Despite incresing the click count this design has ability to get the Url visit time by any one which created by user and the visitor's IP Adress, visit of time and os and browser using by user, also the device type. (got this device type in design by using (user-agent parser)).
 
 Settings //
 
