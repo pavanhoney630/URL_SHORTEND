@@ -73,6 +73,7 @@ h1 {
   background-color: #e6f7ff;
 }
 
+
 .icon {
   margin-left: 8px;
   cursor: pointer;
@@ -85,15 +86,25 @@ h1 {
 }
 
 .link {
-  color: #007acc;
+  
   cursor: pointer;
   text-decoration: underline;
+  visibility: visible;
+  
 }
 
 .link:hover {
   color: #004f80;
 }
+.hiddenUrl {
+  visibility: hidden;
+}
 
+/* Optionally, reveal the URL on hover */
+.link:hover .hiddenUrl {
+  display: inline; /* Show the text on hover */
+  visibility: visible;
+}
 .pagination {
   margin-top: 1rem;
   display: flex;

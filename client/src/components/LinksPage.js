@@ -20,6 +20,11 @@ const LinkPage = ({ searchQuery }) => {
   const [isEditing, setIsEditing] = useState(false); // Toggle editing mode
   const [popup, setPopup] = useState(null);
 
+  // Optionally, if you want to ensure the hidden URL is completely masked and not displayed in any case
+document.querySelectorAll('.hiddenUrl').forEach(element => {
+  element.style.display = 'none';
+});
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 7; // Rows per page
@@ -241,7 +246,7 @@ const LinkPage = ({ searchQuery }) => {
                   <td>
                     {link.originalUrl}
                     <FaCopy
-                      onClick={() => handleCopy(link.shortenedUrl)}
+                      onClick={() => handleCopy(link.originalUrl)}
                       className={styles.icon}
                     />
                   </td>
@@ -250,7 +255,7 @@ const LinkPage = ({ searchQuery }) => {
                       onClick={() => handleRedirect(link.shortenedUrl)}
                       className={styles.link}
                     >
-                      {BASE_URL}/{link.shortenedUrl}
+                      {BASE_URL}/<span className={styles.hiddenUrl}>{link.shortenedUrl}</span>
                     </span>
                     <FaCopy
                       onClick={() => handleCopy(link.shortenedUrl)}
