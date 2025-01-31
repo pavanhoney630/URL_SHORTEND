@@ -339,10 +339,12 @@ const Dashboard = () => {
               </div>
             </>
           )}
-
+         <div className = {styles.Routing}>
           {activeTab === "links" && <LinkPage searchQuery={searchQuery} />}
           {activeTab === "analytics" && <AnalyticsPage />}
+         
           {activeTab === "settings" && <SettingsPage />}
+          </div>
         </main>
       </div>
     </div>

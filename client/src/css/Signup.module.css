@@ -94,11 +94,13 @@
   .signupContainer {
     flex-direction: column;
   }
-
-  .leftSide,
-  .rightSide {
-    flex: none;
-    width: 100%;
+  .leftSide {
+    flex: 1;
+    background: url("../components/image1.png") no-repeat center center;
+    background-size: cover;
+  }
+  .rightSide form {
+    width: 70%;
   }
   .Loginbtn {
     margin-top: 40px;
@@ -106,6 +108,11 @@
 }
 
 @media (max-width: 350px) {
+  .leftSide {
+    flex: 1;
+    background: url("../components/image1.png") no-repeat center center;
+    background-size: cover;
+  }
   .rightSide form {
     width: 100%;
   }

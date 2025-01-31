@@ -1,13 +1,16 @@
-.logout{
-  color: #333;
+
+
+.logout {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background-color: #f44336;
+  color: white;
+  padding: 8px 17px;
   border: none;
   border-radius: 5px;
-  padding: 8px 17px;
-  margin-top: -120px;
-  text-align: right;
-  margin-left: 950px;
-
 }
+
 
 .container {
   max-width: 90%;
@@ -34,35 +37,39 @@ h1 {
   margin-bottom: 1rem;
   font-size: 1.8rem;
 }
+.tableContainer {
+  overflow-x: auto;
+  max-width: 100%;
+  padding: 0 1rem;
+ 
+}
 
 .table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 15px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  min-width: 700px; /* Ensures structure on larger screens */
+}
+
+.table th, 
+.table td {
   text-align: left;
-  min-width: 700px; /* Ensures table retains layout */
-  overflow-x: auto;
+  padding: 12px;
+  white-space: nowrap; /* Prevents text wrapping */
+  text-overflow: ellipsis;
 }
 
 .table th {
   background-color: #4caf50;
   color: white;
-  padding: 12px;
-  font-weight: bold;
   position: sticky;
-  top: 0; /* Sticky header for scrolling */
+  top: 0;
   z-index: 1;
 }
 
 .table td {
   background-color: #f9f9f9;
-  padding: 10px;
-  border: none;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .table tr {
@@ -207,42 +214,38 @@ h1 {
 }
 
 /* Responsive Design */
-@media (min-width: 769px) and (max-width: 1000px){
-  .logout{
-    color: #333;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 17px;
-    margin-top: -120px;
-    text-align: right;
-    margin-left: 400px;
-}
-}
-@media (max-width: 768px) {
-  .logout{
-    color: #333;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 17px;
-    margin-top: -120px;
-    text-align: right;
-    margin-left: 350px;
-  
+  @media screen and (max-width: 768px) {
+    .logout {
+      padding: 7px 15px;
+      font-size: 14px;
+      top: 8px;
+      right: 15px;
+    }
   }
 
-  .container {
-    overflow-x: auto;
+@media (max-width: 768px) {
+.container {
+   
+    overflow: auto;
+
   }
   h1 {
     font-size: 1.6rem;
   }
-  .table {
-    overflow:auto;
+  .tableContainer {
+    padding: 8px;
   }
+
+  .table {
+    min-width: 500px;
+  }
+
 
   .table th,
   .table td {
     padding: 8px;
+    overflow: auto;
+    
   }
 
   .icon {
@@ -253,23 +256,35 @@ h1 {
     padding: 6px 10px;
   }
 }
-
+@media screen and (max-width: 500px) {
+  .logout {
+    padding: 6px 12px;
+    font-size: 12px;
+    top: 6px;
+    right: 10px;
+  }
+}
 @media (min-width: 390px) and (max-width: 500px) {
+  
   .container {
     padding: 1rem;
-    overflow: auto;
+    overflow:auto ;
     -webkit-overflow-scrolling: touch;
   }
 
   h1 {
     font-size: 1.4rem;
   }
-
+  .tableContainer {
+    padding: 8px;
+    width: 95%;
+  }
   .table {
     display: block;
     width: 100%;
-    overflow-x: auto;
-    white-space: nowrap; 
+    overflow: auto;
+    white-space: nowrap;
+     
   
   }
 
@@ -277,6 +292,7 @@ h1 {
   .table td {
     font-size: 0.9rem;
     padding: 6px;
+    overflow: auto;
   }
 
   .pagination {
@@ -295,6 +311,14 @@ h1 {
   }
 }
 
+@media screen and (max-width: 300px) {
+  .logout {
+    padding: 5px 10px;
+    font-size: 10px;
+    top: 4px;
+    right: 5px;
+  }
+}
 @media (max-width: 300px) {
   .container {
     overflow: hidden;
@@ -305,13 +329,17 @@ h1 {
   h1 {
     font-size: 1.2rem;
   }
-
+  .tableContainer {
+    padding: 5px;
+    width: 90%;
+  }
   .table {
     display: block;
     font-size: 0.8rem;
     overflow-x: auto;
     white-space: nowrap;
     max-height: 100%;
+
   }
 
   .table th,

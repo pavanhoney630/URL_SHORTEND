@@ -3,6 +3,8 @@ import axios from "axios";
 import { FaPencilAlt, FaTrash, FaCopy } from "react-icons/fa";
 import styles from "../css/LinkPage.module.css";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Define BASE_URL using environment variable
 const BASE_URL =
@@ -141,7 +143,7 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
   const handleCopy = (shortenedUrl) => {
     const fullUrl = `${BASE_URL}/auth/${shortenedUrl}`;
     navigator.clipboard.writeText(fullUrl);
-    alert("URL copied to clipboard!");
+    toast.success("URL copied to clipboard!");
   };
 
   const handleRedirect = async (shortenedUrl) => {
@@ -217,6 +219,7 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
         ) : filteredLinks.length === 0 ? (
           <p>No links found matching your search query!</p>
         ) : (
+          <div className={styles.tableContainer}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -247,8 +250,10 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
                     {link.originalUrl}
                     <FaCopy
                       onClick={() => handleCopy(link.originalUrl)}
+                      
                       className={styles.icon}
                     />
+                    <ToastContainer />
                   </td>
                   <td>
                     <span
@@ -297,6 +302,7 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
               ))}
             </tbody>
           </table>
+          </div>
         )}
 
         {/* Pagination Controls */}
