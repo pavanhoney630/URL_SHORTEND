@@ -37,7 +37,6 @@ const BASE_URL =
     ? process.env.REACT_APP_DEV_URL
     : process.env.REACT_APP_PROD_URL;
 
-
 const Dashboard = () => {
   const navigate = useNavigate();
   const storedName = localStorage.getItem("name") || "User";
@@ -97,8 +96,6 @@ const Dashboard = () => {
         const response = await axios.get(`${BASE_URL}/auth/user/clicks`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-
-        
 
         const {
           totalClicks = 0,
@@ -251,14 +248,20 @@ const Dashboard = () => {
               />
               <label htmlFor="expirationDate">Link Expiration</label>
               <div className={styles.glideSwitch}>
-                <label htmlFor="glideSwitch">Enable Expiration</label>
-                <input
-                  type="checkbox"
-                  id="glideSwitch"
-                  checked={expirationOn}
-                  onChange={() => setExpirationOn(!expirationOn)}
-                />
+                <label htmlFor="glideSwitch" className={styles.label}>
+                  Enable Expiration
+                </label>
+                <label className={styles.switch}>
+                  <input
+                    type="checkbox"
+                    id="glideSwitch"
+                    checked={expirationOn}
+                    onChange={() => setExpirationOn(!expirationOn)}
+                  />
+                  <span className={styles.slider}></span>
+                </label>
               </div>
+
               {expirationOn && (
                 <input
                   type="date"
@@ -339,11 +342,11 @@ const Dashboard = () => {
               </div>
             </>
           )}
-         <div className = {styles.Routing}>
-          {activeTab === "links" && <LinkPage searchQuery={searchQuery} />}
-          {activeTab === "analytics" && <AnalyticsPage />}
-         
-          {activeTab === "settings" && <SettingsPage />}
+          <div className={styles.Routing}>
+            {activeTab === "links" && <LinkPage searchQuery={searchQuery} />}
+            {activeTab === "analytics" && <AnalyticsPage />}
+
+            {activeTab === "settings" && <SettingsPage />}
           </div>
         </main>
       </div>

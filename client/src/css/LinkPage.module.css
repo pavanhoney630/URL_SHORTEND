@@ -38,7 +38,7 @@ h1 {
   font-size: 1.8rem;
 }
 .tableContainer {
-  overflow-x: auto;
+  
   max-width: 100%;
   padding: 0 1rem;
  
@@ -84,8 +84,14 @@ h1 {
 .icon {
   margin-left: 8px;
   cursor: pointer;
-  color: #555;
   transition: color 0.3s ease;
+}
+.edit{
+  color: blue;
+}
+
+.delete{
+  color: red;
 }
 
 .icon:hover {
@@ -234,6 +240,7 @@ h1 {
   }
   .tableContainer {
     padding: 8px;
+    overflow-x: auto;
   }
 
   .table {

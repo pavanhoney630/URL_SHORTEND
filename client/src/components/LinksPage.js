@@ -285,7 +285,7 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
                         onClick={() =>
                           handleEdit(link.shortenedUrl, link.originalUrl)
                         }
-                        className={styles.icon}
+                        className={`${styles.icon} ${styles.edit}`}
                       />
                     )}
                     <FaTrash
@@ -295,7 +295,7 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
                           shortenedUrl: link.shortenedUrl,
                         })
                       }
-                      className={styles.icon}
+                      className={`${styles.icon} ${styles.delete}`}
                     />
                   </td>
                 </tr>

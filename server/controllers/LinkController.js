@@ -232,7 +232,7 @@ const getUserUrls = async (req, res) => {
 };
 
 const GetAnalytics = async (req, res) => {
-  console.log("GetAnalytics route hit");
+  
   try {
     const token = req.headers.authorization?.split(" ")[1];
     console.log("Token received:", token);
