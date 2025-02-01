@@ -27,9 +27,9 @@ const LinkPage = ({ searchQuery }) => {
   const [popup, setPopup] = useState(null);
 
   // Optionally, if you want to ensure the hidden URL is completely masked and not displayed in any case
-document.querySelectorAll('.hiddenUrl').forEach(element => {
-  element.style.display = 'none';
-});
+  document.querySelectorAll(".hiddenUrl").forEach((element) => {
+    element.style.display = "none";
+  });
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -182,7 +182,7 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
       }
     } catch (err) {
       console.error("Error occurred:", err);
-      alert("Error occurred. Please try again later.");
+      toast.error("Error occurred. Please try again later.");
     }
   };
 
@@ -224,88 +224,100 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
           <p>No links found matching your search query!</p>
         ) : (
           <div className={styles.tableContainer}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Original Link</th>
-                <th>Short Link</th>
-                <th></th>
-                <th>Remarks</th>
-                <th>Clicks</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentLinks.map((link) => (
-                <tr key={link.shortenedUrl}>
-                  <td>
-                    {new Date(link.createdAt).toLocaleString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: true,
-                    })}
-                  </td>
-                  <td>
-                    {link.originalUrl}
-                    <FaCopy
-                      onClick={() => handleCopy(link.originalUrl)}
-                      
-                      className={styles.icon}
-                    />
-                    <ToastContainer />
-                  </td>
-                  <td>
-                    <span
-                      onClick={() => handleRedirect(link.shortenedUrl)}
-                      className={styles.link}
-                    >
-                      {BASE_URL}/<span className={styles.hiddenUrl}>{link.shortenedUrl}</span>
-                    </span>
-                    <FaCopy
-                      onClick={() => handleCopy(link.shortenedUrl)}
-                      className={styles.icon}
-                    />
-                  </td>
-                  <td>:</td>
-                  <td>{link.remarks || "No remarks"}</td>
-                  <td>{link.totalClicks}</td>
-                  <td style={{ color: getStatusColor(link.expirationDate) }}>
-                    {link.expirationDate &&
-                    new Date(link.expirationDate) < new Date()
-                      ? "Inactive"
-                      : "Active"}
-                  </td>
-                  <td>
-                    {isEditing && editUrl === link.shortenedUrl ? (
-                      // Don't show the pencil button when editing
-                      <button onClick={handleUpdate}>Save</button>
-                    ) : (
-                      <FaPencilAlt
-                        onClick={() =>
-                          handleEdit(link.shortenedUrl, link.originalUrl)
-                        }
-                        className={`${styles.icon} ${styles.edit}`}
-                      />
-                    )}
-                    <FaTrash
-                      onClick={() =>
-                        setPopup({
-                          type: "delete",
-                          shortenedUrl: link.shortenedUrl,
-                        })
-                      }
-                      className={`${styles.icon} ${styles.delete}`}
-                    />
-                  </td>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Original Link</th>
+                  <th>Short Link</th>
+                  <th></th>
+                  <th>Remarks</th>
+                  <th>Clicks</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {currentLinks.map((link) => (
+                  <tr key={link.shortenedUrl}>
+                    <td>
+                      {new Date(link.createdAt).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        hour12: true,
+                      })}
+                    </td>
+                    <td>
+                      {link.originalUrl}
+                      <FaCopy
+                        onClick={() => handleCopy(link.originalUrl)}
+                        className={styles.icon}
+                      />
+                      <ToastContainer
+                        position="bottom-left"
+                        autoClose={3000}
+                        hideProgressBar={false}
+                        newestOnTop={true}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                      />
+                    </td>
+                    <td>
+                      <span
+                        onClick={() => handleRedirect(link.shortenedUrl)}
+                        className={styles.link}
+                      >
+                        {BASE_URL}/
+                        <span className={styles.hiddenUrl}>
+                          {link.shortenedUrl}
+                        </span>
+                      </span>
+                      <FaCopy
+                        onClick={() => handleCopy(link.shortenedUrl)}
+                        className={styles.icon}
+                      />
+                    </td>
+                    <td>:</td>
+                    <td>{link.remarks || "No remarks"}</td>
+                    <td>{link.totalClicks}</td>
+                    <td style={{ color: getStatusColor(link.expirationDate) }}>
+                      {link.expirationDate &&
+                      new Date(link.expirationDate) < new Date()
+                        ? "Inactive"
+                        : "Active"}
+                    </td>
+                    <td>
+                      {isEditing && editUrl === link.shortenedUrl ? (
+                        // Don't show the pencil button when editing
+                        <button onClick={handleUpdate}>Save</button>
+                      ) : (
+                        <FaPencilAlt
+                          onClick={() =>
+                            handleEdit(link.shortenedUrl, link.originalUrl)
+                          }
+                          className={`${styles.icon} ${styles.edit}`}
+                        />
+                      )}
+                      <FaTrash
+                        onClick={() =>
+                          setPopup({
+                            type: "delete",
+                            shortenedUrl: link.shortenedUrl,
+                          })
+                        }
+                        className={`${styles.icon} ${styles.delete}`}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
 
@@ -328,68 +340,71 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
 
         {/* Popup for Edit */}
         {popup === "edit" && isEditing && editUrl !== null && (
-  <div className={styles.popup}>
-    <div className={styles.popupContent}>
-      <h2>Edit Link</h2>
+          <div className={styles.popup}>
+            <div className={styles.popupContent}>
+              <h2>Edit Link</h2>
 
-      {/* Original URL Input */}
-      <label className={styles.inputLabel}>Original URL</label>
-      <input
-        type="text"
-        value={newOriginalUrl}
-        onChange={(e) => setNewOriginalUrl(e.target.value)}
-        className={styles.inputField}
-        placeholder="Enter the original URL"
-      />
+              {/* Original URL Input */}
+              <label className={styles.inputLabel}>Original URL</label>
+              <input
+                type="text"
+                value={newOriginalUrl}
+                onChange={(e) => setNewOriginalUrl(e.target.value)}
+                className={styles.inputField}
+                placeholder="Enter the original URL"
+              />
 
-      {/* Remarks Input */}
-      <label className={styles.inputLabel}>Remarks</label>
-      <input
-        type="text"
-        value={remarks}
-        onChange={(e) => setRemarks(e.target.value)}
-        className={styles.inputField}
-        placeholder="Add remarks (optional)"
-      />
+              {/* Remarks Input */}
+              <label className={styles.inputLabel}>Remarks</label>
+              <input
+                type="text"
+                value={remarks}
+                onChange={(e) => setRemarks(e.target.value)}
+                className={styles.inputField}
+                placeholder="Add remarks (optional)"
+              />
 
-      {/* Expiration Switch */}
-      <div className={styles.switchContainer}>
-        <label className={styles.inputLabel}>Enable Expiration</label>
-        <label className={styles.switch}>
-          <input
-            type="checkbox"
-            id="glideSwitch"
-            checked={expirationOn}
-            onChange={() => setExpirationOn(!expirationOn)}
-          />
-          <span className={styles.slider}></span>
-        </label>
-      </div>
+              {/* Expiration Switch */}
+              <div className={styles.switchContainer}>
+                <label className={styles.inputLabel}>Enable Expiration</label>
+                <label className={styles.switch}>
+                  <input
+                    type="checkbox"
+                    id="glideSwitch"
+                    checked={expirationOn}
+                    onChange={() => setExpirationOn(!expirationOn)}
+                  />
+                  <span className={styles.slider}></span>
+                </label>
+              </div>
 
-      {expirationOn && (
-        <>
-          <label className={styles.inputLabel}>Expiration Date</label>
-          <input
-            type="datetime-local"
-            value={expirationDate}
-            onChange={(e) => setExpirationDate(e.target.value)}
-            className={styles.inputField}
-          />
-        </>
-      )}
+              {expirationOn && (
+                <>
+                  <label className={styles.inputLabel}>Expiration Date</label>
+                  <input
+                    type="datetime-local"
+                    value={expirationDate}
+                    onChange={(e) => setExpirationDate(e.target.value)}
+                    className={styles.inputField}
+                  />
+                </>
+              )}
 
-      {/* Buttons */}
-      <div className={styles.buttonGroup}>
-        <button onClick={handleUpdate} className={styles.updateButton}>
-          Update
-        </button>
-        <button onClick={() => setPopup(null)} className={styles.closeButton}>
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+              {/* Buttons */}
+              <div className={styles.buttonGroup}>
+                <button onClick={handleUpdate} className={styles.updateButton}>
+                  Update
+                </button>
+                <button
+                  onClick={() => setPopup(null)}
+                  className={styles.closeButton}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Popup for Delete */}
         {popup && popup.type === "delete" && (

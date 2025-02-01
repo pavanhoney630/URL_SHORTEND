@@ -222,7 +222,6 @@ const Dashboard = () => {
           <div className={styles.profileIcon}>{initials}</div>
         </div>
       </header>
-
       {modalOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
