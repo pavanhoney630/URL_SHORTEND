@@ -20,6 +20,10 @@ const LinkPage = ({ searchQuery }) => {
   const [editUrl, setEditUrl] = useState(null); // Keep editUrl to track which link is being edited
   const [newOriginalUrl, setNewOriginalUrl] = useState("");
   const [isEditing, setIsEditing] = useState(false); // Toggle editing mode
+  const [remarks, setRemarks] = useState(""); // Manage remarks
+  const [expirationOn, setExpirationOn] = useState(false); // Manage expiration toggle
+  const [expirationDate, setExpirationDate] = useState(""); // Manage expiration date
+
   const [popup, setPopup] = useState(null);
 
   // Optionally, if you want to ensure the hidden URL is completely masked and not displayed in any case
@@ -324,19 +328,68 @@ document.querySelectorAll('.hiddenUrl').forEach(element => {
 
         {/* Popup for Edit */}
         {popup === "edit" && isEditing && editUrl !== null && (
-          <div className={styles.popup}>
-            <div className={styles.popupContent}>
-              <h2>Edit Link</h2>
-              <input
-                type="text"
-                value={newOriginalUrl}
-                onChange={(e) => setNewOriginalUrl(e.target.value)}
-              />
-              <button onClick={handleUpdate}>Update</button>
-              <button onClick={() => setPopup(null)}>Close</button>
-            </div>
-          </div>
-        )}
+  <div className={styles.popup}>
+    <div className={styles.popupContent}>
+      <h2>Edit Link</h2>
+
+      {/* Original URL Input */}
+      <label className={styles.inputLabel}>Original URL</label>
+      <input
+        type="text"
+        value={newOriginalUrl}
+        onChange={(e) => setNewOriginalUrl(e.target.value)}
+        className={styles.inputField}
+        placeholder="Enter the original URL"
+      />
+
+      {/* Remarks Input */}
+      <label className={styles.inputLabel}>Remarks</label>
+      <input
+        type="text"
+        value={remarks}
+        onChange={(e) => setRemarks(e.target.value)}
+        className={styles.inputField}
+        placeholder="Add remarks (optional)"
+      />
+
+      {/* Expiration Switch */}
+      <div className={styles.switchContainer}>
+        <label className={styles.inputLabel}>Enable Expiration</label>
+        <label className={styles.switch}>
+          <input
+            type="checkbox"
+            id="glideSwitch"
+            checked={expirationOn}
+            onChange={() => setExpirationOn(!expirationOn)}
+          />
+          <span className={styles.slider}></span>
+        </label>
+      </div>
+
+      {expirationOn && (
+        <>
+          <label className={styles.inputLabel}>Expiration Date</label>
+          <input
+            type="datetime-local"
+            value={expirationDate}
+            onChange={(e) => setExpirationDate(e.target.value)}
+            className={styles.inputField}
+          />
+        </>
+      )}
+
+      {/* Buttons */}
+      <div className={styles.buttonGroup}>
+        <button onClick={handleUpdate} className={styles.updateButton}>
+          Update
+        </button>
+        <button onClick={() => setPopup(null)} className={styles.closeButton}>
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
         {/* Popup for Delete */}
         {popup && popup.type === "delete" && (

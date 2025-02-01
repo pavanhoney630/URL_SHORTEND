@@ -217,13 +217,14 @@ input:checked + .slider:before {
   align-items: center;
   margin-top: -20px;
   height: 160px;
-  width: 250px;
+  width: 390px;
 }
 
 .chart canvas {
-  width: 60% !important;
+  width: 80% !important;
   height: 25vh !important;
   display: flex;
+  
 }
 
 .chart h3 {
@@ -231,6 +232,7 @@ input:checked + .slider:before {
   font-weight: 600;
   margin-bottom: 1rem;
   color: #333;
+
 }
 
 .totalClicks {

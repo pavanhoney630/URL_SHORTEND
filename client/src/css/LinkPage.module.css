@@ -219,6 +219,89 @@ h1 {
   background-color: #aaa; /* Darker gray on hover */
 }
 
+.switchContainer {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.label {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 18px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+.inputLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.inputField {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+
+.inputField:focus {
+  border-color: #007bff;
+}
+.updateButton{
+  background-color:  green;
+}
+.closeButton{
+  background-color: red;
+}
+
+  
+
 /* Responsive Design */
   @media screen and (max-width: 768px) {
     .logout {
