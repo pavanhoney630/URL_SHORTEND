@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard"; // Import the Dashboard
 import LinksPage from "./components/LinksPage";
 import AnalyticsPage from "./components/AnalyticsPage";
 import SettingsPage from "./components/SettingsPage";
+import "./index.css"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
