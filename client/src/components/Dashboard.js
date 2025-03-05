@@ -114,9 +114,8 @@ const Dashboard = () => {
     if (token) {
       fetchClicksData();
     }
-  }, [token]); // Dependencies: only trigger on token change
+  }, [token]);
 
-  // Set current date-time
   useEffect(() => {
     const now = new Date();
     const formattedDate = now
@@ -126,9 +125,9 @@ const Dashboard = () => {
         month: "short",
         year: "2-digit",
       })
-      .replace(/\./g, ""); // Clean up date format
+      .replace(/\./g, "");
     setCurrentDateTime(formattedDate);
-  }, []); // Empty dependency array ensures this runs only once (component mount)
+  }, []);
 
   const toggleModal = () => setModalOpen(!modalOpen);
 
@@ -157,13 +156,26 @@ const Dashboard = () => {
   };
 
   const barChartData = {
-    labels: dateWiseClicks.map((click) => click.date), // Extracts dates for labels
+    labels: dateWiseClicks.map((click) => click.date),
     datasets: [
       {
         label: "Total Clicks",
-        data: dateWiseClicks.map((click) => click.totalClicks), // Extracts total clicks
+        data: dateWiseClicks.map((click) => click.totalClicks),
         backgroundColor: "#007bff",
         borderColor: "#0056b3",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const barChartDeviceData = {
+    labels: Object.keys(deviceClicks),
+    datasets: [
+      {
+        label: "Device-wise Clicks",
+        data: Object.values(deviceClicks),
+        backgroundColor: ["#007bff", "#28a745", "#ffc107"],
+        borderColor: ["#0056b3", "#1e7e34", "#d39e00"],
         borderWidth: 1,
       },
     ],
@@ -176,17 +188,37 @@ const Dashboard = () => {
       title: { display: true, text: "Date-wise Total Clicks" },
       tooltip: { enabled: true },
     },
-    indexAxis: "y", // Horizontal bar graph
+    indexAxis: "y",
     scales: {
       y: {
         beginAtZero: true,
         grid: { display: true },
         ticks: {
           display: true,
-          autoSkip: false, // Ensure no skipping of dates
-          maxRotation: 0, // No rotation for better readability
+          autoSkip: false,
+          maxRotation: 0,
           minRotation: 0,
         },
+      },
+      x: {
+        beginAtZero: true,
+        grid: { display: false },
+      },
+    },
+  };
+
+  const barChartDeviceOptions = {
+    responsive: true,
+    plugins: {
+      legend: { position: "top" },
+      title: { display: true, text: "Device-wise Clicks" },
+      tooltip: { enabled: true },
+    },
+    indexAxis: "y",
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: { display: true },
       },
       x: {
         beginAtZero: true,
@@ -327,24 +359,21 @@ const Dashboard = () => {
 
               <div className={styles.clicksData}>
                 <div className={styles.chart}>
+                  <h3>Date-wise Clicks</h3>
                   <Bar data={barChartData} options={barChartOptions} />
                 </div>
 
-                <div className={styles.deviceClicks}>
-                  <h3>Device-wise Clicks</h3>
-                  <ul>
-                    <li>Mobile: {deviceClicks.Mobile}</li>
-                    <li>Desktop: {deviceClicks.Desktop}</li>
-                    <li>Tablet: {deviceClicks.Tablet}</li>
-                  </ul>
-                </div>
+                <div className={styles.chartContainer}>
+  <h2>Device-wise Clicks</h2>
+  <Bar data={barChartDeviceData} options={barChartDeviceOptions} />
+</div>
+
               </div>
             </>
           )}
           <div className={styles.Routing}>
             {activeTab === "links" && <LinkPage searchQuery={searchQuery} />}
             {activeTab === "analytics" && <AnalyticsPage />}
-
             {activeTab === "settings" && <SettingsPage />}
           </div>
         </main>

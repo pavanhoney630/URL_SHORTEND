@@ -216,8 +216,9 @@ input:checked + .slider:before {
   justify-content: center;
   align-items: center;
   margin-top: -20px;
-  height: 160px;
+  height: 220px;
   width: 390px;
+
 }
 
 .chart canvas {
@@ -265,6 +266,14 @@ input:checked + .slider:before {
   display: flex;
   justify-content: space-around;
 }
+.chartContainer{
+  margin-top: -30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 250px;
+  width: 350px;
+  padding: 3px;
+  border-radius: 20px;
+}
 .deviceClicks {
   background-color: #fff;
   border-radius: 10px;
@@ -272,8 +281,8 @@ input:checked + .slider:before {
   width: 30%;
   justify-content: center;
   align-items: center;
-  height: 25vh;
-  margin-top: -25px;
+  height: 20vh;
+  margin-top: -20px;
 }
 
 .deviceClicks h3 {
@@ -320,6 +329,16 @@ input:checked + .slider:before {
     gap: 0.5rem;
     background-color: #00b321;
   }
+.leftSection, .rightSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #007bff; /* Blue background */
+  padding: 1rem;
+  color: white;
+  gap: 1rem;
+}
+
 
   .Routing {
     max-width: 100%;
@@ -405,7 +424,7 @@ input:checked + .slider:before {
   }
   .deviceClicks {
     margin-left: 10px;
-    height: 18vh;
+    height: 10vh;
   }
   .totalClicks {
     margin-bottom: 2rem;
